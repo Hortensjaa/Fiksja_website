@@ -1,5 +1,8 @@
 .env
 db.sqlite3
 records.migrations
+records.__pychache__
 polls.migrations
+polls.__pychache__
 core.migrations
+core.__pychache__
