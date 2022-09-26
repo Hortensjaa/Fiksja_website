@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+
+{% block title %}Fiksja Records{% endblock %}
+
+{% block content %}
+<h1> {{ record.title }} </h1>
+<button onclick="show()" id="y">Zauktualizuj rekord</button>
+<div id="x" hidden>
+    <h3> Dodajesz nową próbę pobicia rekordu do historii - zostanie ona automatyczne
+    ustawiona jako aktualny rekord</h3>
+    <form action = '' method="POST"> {% csrf_token %}
+        {{form.as_p}}
+        <p style="color:red;">Friendly reminder: jeżeli kłamiesz, inni użytkownicy zaraz zaczną się z tobą kłócić ;)</p>
+        <input type="submit" value="Dodaj"/>
+    </form>
+    <button onclick="hide()">Anuluj</button>
+</div>
+
+{% for break in breaks_list %}
+    {% if break.current_break %}
+        <h4><strong> {{ break.value }} przez <a href="#profil">{{ break.breaker }}</a>
+            z dnia {{ break.break_date }}</strong></h4>
+    {% else %}
+        <h4> {{ break.value }} przez <a href="#profil">{{ break.breaker }}</a> z dnia {{ break.break_date }}</h4>
+    {% endif %}
+    {% if break.break_description %}
+       <p>{{ break.break_description }}</p>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

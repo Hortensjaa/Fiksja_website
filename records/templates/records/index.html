@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+
+{% block title %}Fiksja records{% endblock %}
+
+{% block content %}
+
+<h1>Fiksja rekordy</h1>
+<button onclick="show()" id="y">Dodaj nowy rekord do pobicia</button>
+<div id="x" hidden>
+    <form action = '' method="POST"> {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Dodaj rekord"/>
+    </form>
+    <button onclick="hide()">Anuluj</button>
+</div>
+<ul>
+{% for record in records_list %}
+    <li><h4><a href="{% url 'records:detail' record.id %}">{{ record.title }}</a></h4>
+        {% if record.has_a_break %}
+        <p>Rekord: <strong>{{ record.current_break.value }} </strong>
+            ustanowione {{ record.current_break.break_date }}
+            przez {{ record.current_break.breaker }} </p></li>
+    {% else %}
+        <p>Ten rekord nie został jeszcze ustanowiony</p>
+    {% endif %}
+{% endfor %}
+</ul>
+
+{% endblock %}

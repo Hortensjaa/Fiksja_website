@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+{% block title %}Fiksja polls{% endblock %}
+{% block content %}
+
+<h1>Fiksja ankiety</h1>
+<form action = '' method="POST"> {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Dodaj ankietę"/>
+</form>
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+        dodano {{ question.pub_date }} {% if question.author %} przez {{ question.author }} {% endif %} </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Brak ankiet:( dodaj jakąś!</p>
+{% endif %}
+
+{% endblock %}
